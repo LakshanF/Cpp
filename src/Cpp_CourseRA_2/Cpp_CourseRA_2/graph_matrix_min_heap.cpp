@@ -3,7 +3,7 @@
 using namespace MyGraph;
 using namespace std;
 
-graph_matrix_node::graph_matrix_node(int id, int cost):id(id), cost(cost), lowest_cost_node(-1) {}
+graph_matrix_node::graph_matrix_node(int id, int cost):id(id), cost(cost) {}
 
 graph_matrix_min_heap::graph_matrix_min_heap(int size):heap_size(size)
 {
@@ -24,7 +24,7 @@ graph_matrix_min_heap::~graph_matrix_min_heap()
     delete nodes;
 }
 
-int graph_matrix_min_heap::extract_min_node()
+int graph_matrix_min_heap::extract_min_node_id()
 {
     int min_node_id = nodes[0]->id;
     delete nodes[0];
@@ -40,7 +40,7 @@ int graph_matrix_min_heap::extract_min_node()
 /// We will walk the nodes, find the node, extract, exchange with last and call heapify
 /// </summary>
 /// <returns></returns>
-int graph_matrix_min_heap::extract_node(int id)
+int graph_matrix_min_heap::extract_node_id(int id)
 {
     int index = -1;
     do 

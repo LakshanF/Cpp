@@ -6,9 +6,9 @@ namespace MyGraph
     {
         int cost;
         int id;
-        int lowest_cost_node;
+        //int lowest_cost_node;
         friend class graph_matrix_min_heap;
-        friend class matrix_graph;
+        //friend class matrix_graph;
     public:
         graph_matrix_node(int id, int cost);
     };
@@ -32,8 +32,8 @@ namespace MyGraph
         ~graph_matrix_min_heap();
     public:
         graph_matrix_min_heap(int size);
-        int extract_min_node();
-        int extract_node(int id);
+        int extract_min_node_id();
+        int extract_node_id(int id);
         void insert_node(int id, int cost);
     };
 }

@@ -7,7 +7,7 @@ graph_matrix_node::graph_matrix_node(int id, int cost):id(id), cost(cost), lowes
 
 graph_matrix_min_heap::graph_matrix_min_heap(int size):heap_size(size)
 {
-    nodes = new graph_matrix_node * [size];
+    nodes = new graph_matrix_node * [heap_size];
     nodes[0] = new graph_matrix_node(0, 0);
     for (auto i = 1; i < size; i++)
     {
@@ -31,16 +31,40 @@ int graph_matrix_min_heap::extract_min_node()
 /// We will walk the nodes, find the node, extract, exchange with last and call heapify
 /// </summary>
 /// <returns></returns>
-int graph_matrix_min_heap::extract_node(int index)
+int graph_matrix_min_heap::extract_node(int id)
 {
     // @TODO - error checking if size is not correct
-    graph_matrix_node* node = nodes[index];
-    nodes[index] = nodes[heap_size - 1];
+    int index = -1;
+    do 
+    {
+        index++;
+        if (nodes[index]->id == id)
+        {
+            graph_matrix_node* node = nodes[index];
+            nodes[index] = nodes[heap_size - 1];
+            heap_size--;
+            heapify(index);
+            return id;
+        }
+    } while (index < heap_size);
+    //for (auto i = 0; i < heap_size; i++)
+    //{
+    //    if(nodes[i]->id==index)
+    //    {
+    //        graph_matrix_node* node = nodes[index];
+    //        nodes[index] = nodes[heap_size - 1];
+    //    }
+    //    //nodes[i] = new graph_matrix_node(i, 100000);
+    //}
 
-    heap_size--;
-    heapify(index);
 
-    return node->id;
+    //graph_matrix_node* node = nodes[index];
+    //nodes[index] = nodes[heap_size - 1];
+
+    //heap_size--;
+    //heapify(index);
+
+    return -1;
 }
 
 

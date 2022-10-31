@@ -2,6 +2,8 @@
 #include "matrix_graph.h"
 #include "graph_matrix_min_heap.h"
 #include <iostream>
+#include <assert.h>
+#include <unordered_set>
 //#include <queue>
 
 const int MAX_VALUE = 100000;
@@ -45,7 +47,7 @@ matrix_graph::matrix_graph(int size, double density):size(size), density(density
             if (graph[i][j])
             {
                 color[i][j] = color[j][i] = rand() % 3;
-                cost[i][j] = cost[j][i] = prob() * 30;
+                cost[i][j] = cost[j][i] = (prob() * 30) + 1;
             }
         }
     }
@@ -87,9 +89,9 @@ void matrix_graph::print()
 /// <returns>shortest path</returns>
 int matrix_graph::shortest_path_dijkstra()
 {
-    // queue<graph_matrix_node*> graphQ;
     // We will use a min_heap instead of a Q
     // The heap will be initialized correctly
+    unordered_set<int> in_nodes;
     graph_matrix_node** nodes = new graph_matrix_node * [size];
     nodes[0] = new graph_matrix_node(0, 0);
     for (auto i = 1; i < size; i++)
@@ -102,23 +104,26 @@ int matrix_graph::shortest_path_dijkstra()
     for (auto i = 0; i < size; i++)
     {
         graph_matrix_node* node = nodes[min_heap->extract_min_node()];
+        in_nodes.insert(node->id);
+        if (node->id == (size - 1))
+            // We have reached the last node
+            break; 
         //cout << "i: " << i << ", node_id: " << node->id << ", cost: " << node->cost << endl;
         // go over all the edges and relax
         for (auto j = 0; j < size; j++)
         {
-            if (graph[node->id][j])
+            if (graph[node->id][j] && (in_nodes.count(j)==0))
             {
-                //cout << "j: " << j << endl;
-                graph_matrix_node* edge_node = nodes[min_heap->extract_node(j)];
-                //cout << "DONE - j: " << j << endl;
+                int heap_j = min_heap->extract_node(j);
+                assert(heap_j == j, "j %i:, heap_j: %i", j, heap_j);
+                graph_matrix_node* edge_node = nodes[heap_j];
                 if ((edge_node->cost == MAX_VALUE) || edge_node->cost > (node->cost + cost[node->id][j]))
                 {
                     // This node has been initialized to its cost at all
                     edge_node->cost = node->cost + cost[node->id][j];
                     edge_node->lowest_cost_node = node->id;
                 }
-                if (edge_node->cost == 0)
-                    cout << "need" << endl;
+                //cout << "j: " << j << ", edge_node->cost: " << edge_node->cost << endl;
                 min_heap->insert_node(edge_node->id, edge_node->cost);
             }
         }

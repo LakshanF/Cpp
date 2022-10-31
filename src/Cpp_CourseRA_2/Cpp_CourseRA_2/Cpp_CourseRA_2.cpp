@@ -22,14 +22,14 @@ int main()
 
     matrix_graph graph(size, density);
     
-    ofstream out("graph_data5.txt");
-    streambuf* coutbuf = cout.rdbuf();
-    cout.rdbuf(out.rdbuf());
+    //ofstream out("graph_data5.txt");
+    //streambuf* coutbuf = cout.rdbuf();
+    //cout.rdbuf(out.rdbuf());
 
-    graph.print();
-    cout.flush();
-    
-    cout.rdbuf(coutbuf);
+    //graph.print();
+    //cout.flush();
+    //
+    //cout.rdbuf(coutbuf);
 
     int shortestPath = graph.shortest_path_dijkstra();
 

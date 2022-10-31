@@ -1,0 +1,18 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+x64/
+
+# Excel
+~*
+
+# Visual Studio
+.vs/
+*.filters
+*.user
+
+# Binlog files
+*.binlog
+
+# Scratch files
+scratch*.txt

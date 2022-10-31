@@ -112,18 +112,11 @@ int matrix_graph::shortest_path_dijkstra()
     // We will use a min_heap instead of a Q
     // The heap will be initialized correctly
     unordered_set<int> in_nodes;
-    //graph_matrix_node** nodes = new graph_matrix_node * [size];
-    //nodes[0] = new graph_matrix_node(0, 0);
-    //for (auto i = 1; i < size; i++)
-    //{
-    //    nodes[i] = new graph_matrix_node(i, MAX_VALUE);
-    //}
     graph_matrix_min_heap* min_heap = new graph_matrix_min_heap(size);
 
     // We will iterate the size of the graph
     for (auto i = 0; i < size; i++)
     {
-        //graph_matrix_node* node = nodes[min_heap->extract_min_node()];
         int min_node_id = min_heap->extract_min_node_id();
         int min_node_cost = node_cost[min_node_id];
         in_nodes.insert(min_node_id);
@@ -136,15 +129,12 @@ int matrix_graph::shortest_path_dijkstra()
         {
             if (graph[min_node_id][j] && (in_nodes.count(j)==0))
             {
-                //@TODO - naming change, delete node, node_id etc.
                 int heap_j = min_heap->extract_node_id(j);
                 assert(heap_j == j);
-                //graph_matrix_node* edge_node = nodes[heap_j];
                 int existing_edge_node_cost = node_cost[j];
                 int this_edge_cost = edge_cost[min_node_id][j];
                 if ((existing_edge_node_cost == MAX_VALUE) || existing_edge_node_cost > (min_node_cost + this_edge_cost))
                 {
-                    // This node has been initialized to its cost at all
                     existing_edge_node_cost = min_node_cost + this_edge_cost;
                     node_low_cost_parent_id[j] = min_node_id;
                     node_cost[j] = existing_edge_node_cost;

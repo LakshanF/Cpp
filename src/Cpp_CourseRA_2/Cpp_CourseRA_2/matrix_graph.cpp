@@ -130,10 +130,12 @@ int matrix_graph::shortest_path_dijkstra()
     }
 
     // find out the shorted path cost by going to the last node and traversing
+    cout << "lastNode: " << (size - 1) << ", cost: " << nodes[size - 1]->cost << endl;
     int parentNodeId = nodes[size - 1]->lowest_cost_node;
     int shortestPathCost = nodes[size - 1]->cost;
     while (parentNodeId != -1)
     {
+        cout << "parentNodeId: " << parentNodeId << ", cost: " << nodes[parentNodeId]->cost << endl;
         shortestPathCost += nodes[parentNodeId]->cost;
         parentNodeId = nodes[parentNodeId]->lowest_cost_node;
     }

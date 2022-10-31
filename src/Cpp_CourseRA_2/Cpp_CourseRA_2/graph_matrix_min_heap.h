@@ -29,6 +29,7 @@ namespace MyGraph
         int left_index(int index);
         int right_index(int index);
         int parent_index(int index);
+        ~graph_matrix_min_heap();
     public:
         graph_matrix_min_heap(int size);
         int extract_min_node();

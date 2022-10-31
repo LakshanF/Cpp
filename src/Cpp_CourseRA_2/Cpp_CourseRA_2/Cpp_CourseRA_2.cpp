@@ -17,8 +17,8 @@ int main()
     //cout << "graph density (0, 1):" << endl;
     //cin >> density;
 
-    int size = 50;
-    double density = 0.4;
+    int size = 500;
+    double density = 0.1;
 
     matrix_graph graph(size, density);
     

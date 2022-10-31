@@ -9,22 +9,31 @@ graph_matrix_min_heap::graph_matrix_min_heap(int size):heap_size(size)
 {
     nodes = new graph_matrix_node * [heap_size];
     nodes[0] = new graph_matrix_node(0, 0);
-    for (auto i = 1; i < size; i++)
+    for (auto i = 1; i < heap_size; i++)
     {
         nodes[i] = new graph_matrix_node(i, 100000);
     }
 }
 
+graph_matrix_min_heap::~graph_matrix_min_heap()
+{
+    for (auto i = 0; i < heap_size; i++)
+    {
+        delete nodes[i];
+    }
+    delete nodes;
+}
+
 int graph_matrix_min_heap::extract_min_node()
 {
-    // @TODO - error checking if size is not correct
-    graph_matrix_node* head = nodes[0];
+    int min_node_id = nodes[0]->id;
+    delete nodes[0];
     nodes[0] = nodes[heap_size-1];
     
     heap_size--;
     heapify(0);
 
-    return head->id;
+    return min_node_id;
 }
 
 /// <summary>
@@ -33,36 +42,19 @@ int graph_matrix_min_heap::extract_min_node()
 /// <returns></returns>
 int graph_matrix_min_heap::extract_node(int id)
 {
-    // @TODO - error checking if size is not correct
     int index = -1;
     do 
     {
         index++;
         if (nodes[index]->id == id)
         {
-            graph_matrix_node* node = nodes[index];
+            delete nodes[index];
             nodes[index] = nodes[heap_size - 1];
             heap_size--;
             heapify(index);
             return id;
         }
     } while (index < heap_size);
-    //for (auto i = 0; i < heap_size; i++)
-    //{
-    //    if(nodes[i]->id==index)
-    //    {
-    //        graph_matrix_node* node = nodes[index];
-    //        nodes[index] = nodes[heap_size - 1];
-    //    }
-    //    //nodes[i] = new graph_matrix_node(i, 100000);
-    //}
-
-
-    //graph_matrix_node* node = nodes[index];
-    //nodes[index] = nodes[heap_size - 1];
-
-    //heap_size--;
-    //heapify(index);
 
     return -1;
 }
@@ -140,35 +132,4 @@ void graph_matrix_min_heap::heapify(int index)
             loop = false;
         }
     }
-
-
-    //if (index >= (heap_size - 1))
-    //    return;
-
-    //int smallest = -1;
-    //
-    //int left = left_index(index);
-    //int right = right_index(index);
-
-    //if (left < (heap_size - 1) && (nodes[left]->cost < nodes[index]->cost))
-    //{
-    //    smallest = left;
-    //}
-    //else 
-    //{
-    //    smallest = right;
-    //}
-
-    //if (right < (heap_size - 1) && (nodes[right]->cost < nodes[smallest]->cost))
-    //{
-    //    smallest = right;
-    //}
-
-    //if (smallest != index)
-    //{
-    //    graph_matrix_node* temp = nodes[index];
-    //    nodes[index] = nodes[smallest];
-    //    nodes[smallest] = temp;
-    //    heapify(smallest);
-    //}
 }

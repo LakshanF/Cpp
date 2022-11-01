@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <assert.h>
 #include "matrix_graph.h"
 
 using namespace std;
@@ -17,21 +18,31 @@ int main()
     //cout << "graph density (0, 1):" << endl;
     //cin >> density;
 
-    int size = 500;
+    int size = 5000;
     double density = 0.1;
 
     matrix_graph graph(size, density);
     
-    //ofstream out("graph_data5.txt");
-    //streambuf* coutbuf = cout.rdbuf();
-    //cout.rdbuf(out.rdbuf());
+    ofstream out("graph_shortest_path_dijkstra_data.txt");
+    streambuf* coutbuf = cout.rdbuf();
+    cout.rdbuf(out.rdbuf());
 
-    //graph.print();
-    //cout.flush();
-    //
-    //cout.rdbuf(coutbuf);
+    graph.print();
+    cout << endl;
 
+    cout << "Shortest Path Information: First Run" << endl;
     int shortestPath = graph.shortest_path_dijkstra();
+    cout << endl;
 
-    cout << "Shorted Path: " << shortestPath << "\n";
+    for (auto i = 0; i < 10; i++)
+    {
+        cout << "Shortest Path Information: " << (i+2) << " run" << endl;
+        assert(graph.shortest_path_dijkstra()==shortestPath);
+        cout << endl;
+    }
+
+    cout.flush();
+    
+    cout.rdbuf(coutbuf);
+    cout << "Shorted Path: " << shortestPath << endl;
 }

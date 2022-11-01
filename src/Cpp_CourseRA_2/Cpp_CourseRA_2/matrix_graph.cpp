@@ -109,6 +109,15 @@ void matrix_graph::print()
 /// <returns>shortest path</returns>
 int matrix_graph::shortest_path_dijkstra()
 {
+    // Initialize algorithmic specific values
+    for (auto i = 0; i < size; i++)
+    {
+        node_cost[i] = MAX_VALUE;
+        node_low_cost_parent_id[i] = -1;
+    }
+    // root node is 0
+    node_cost[0] = 0;
+
     // We will use a min_heap instead of a Q
     // The heap will be initialized correctly
     unordered_set<int> in_nodes;
@@ -155,6 +164,8 @@ int matrix_graph::shortest_path_dijkstra()
         shortestPathCost += node_cost[parentNodeId];
         parentNodeId = node_low_cost_parent_id[parentNodeId];
     }
+    cout << "Shorted Path: " << shortestPathCost << endl;
+
     return shortestPathCost;
 }
 

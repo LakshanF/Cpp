@@ -4,9 +4,6 @@
 #include <iostream>
 #include <assert.h>
 #include <unordered_set>
-//#include <queue>
-
-const int MAX_VALUE = 100000;
 
 using namespace MyGraph;
 using namespace std;
@@ -122,14 +119,13 @@ int matrix_graph::minimum_spanning_tree_prim()
     unordered_set<int> in_nodes;
     graph_matrix_min_heap* min_heap = new graph_matrix_min_heap(size);
 
-    // We will iterate the size of the graph
+    // We will iterate the (size-1) of the graph
     for (auto i = 0; i < (size-1); i++)
     {
         int min_node_id = min_heap->extract_min_node_id();
         int min_node_cost = node_cost[min_node_id];
         in_nodes.insert(min_node_id);
         // cout << "i: " << i << ", node_id: " << min_node_id << ", cost: " << min_node_cost << endl;
-        // go over all the edges and relax
         for (auto j = 0; j < size; j++)
         {
             if (graph[min_node_id][j] && (in_nodes.count(j)==0))

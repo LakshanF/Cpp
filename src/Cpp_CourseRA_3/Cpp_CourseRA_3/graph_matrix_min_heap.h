@@ -2,6 +2,7 @@
 // graph_matrix_min_heap.h
 namespace MyGraph
 {
+    const int MAX_VALUE = 100000;
     class graph_matrix_node
     {
         int cost;

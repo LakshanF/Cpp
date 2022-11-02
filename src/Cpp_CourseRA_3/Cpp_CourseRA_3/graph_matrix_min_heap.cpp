@@ -11,7 +11,7 @@ graph_matrix_min_heap::graph_matrix_min_heap(int size):heap_size(size)
     nodes[0] = new graph_matrix_node(0, 0);
     for (auto i = 1; i < heap_size; i++)
     {
-        nodes[i] = new graph_matrix_node(i, 100000);
+        nodes[i] = new graph_matrix_node(i, MAX_VALUE);
     }
 }
 

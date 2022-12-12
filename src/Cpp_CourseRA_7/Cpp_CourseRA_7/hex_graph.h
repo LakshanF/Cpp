@@ -2,21 +2,26 @@
 
 namespace HexGraph
 {
+	enum class piece: short { empty, blue, red };
+	enum class path_color : short { white, grey, black };
+
 	class hex_node
 	{
 		int id;
-		int piece_type;// change to enum
+		piece piece_type;
+		path_color color;
 	public:
-		hex_node():id(0), piece_type(0){}
+		hex_node():id(0), piece_type(piece::empty){}
 		hex_node(int id);
-		int get_piece();
-		void set_piece(int piece);
+		piece get_piece();
+		void set_piece(piece piecetype);
 	};
 
 	class hex_graph
 	{
 		int size_one_side;
 		hex_node* nodes;
+		hex_node GetNode(int position);
 	public:
 		hex_graph(int size);
 		~hex_graph();

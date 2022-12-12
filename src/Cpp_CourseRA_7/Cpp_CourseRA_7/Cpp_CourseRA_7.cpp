@@ -10,6 +10,31 @@ using namespace std;
 
 int main()
 {
-    hex_graph graph(5);
-    graph.print_board();
+    int board_size = 3;
+    hex_graph graph(board_size);
+    int row, col;
+    for (int i = 0; i < board_size * board_size; i++)
+    {
+        graph.print_board();
+        while (true)
+        {
+            cout << "Please make a move (row, column): " << endl;
+            cin >> row >> col;
+            if (graph.add_user_move(row, col))
+                break;
+        }
+        if (graph.game_finished())
+        {
+            cout << "You Won!" << endl;
+            graph.print_board();
+            break;
+        }
+        graph.make_computer_move();
+        if (graph.game_finished())
+        {
+            cout << "Computer Won!" << endl;
+            graph.print_board();
+            break;
+        }
+    }
 }
